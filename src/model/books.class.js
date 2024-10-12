@@ -100,6 +100,6 @@ export default class Books {
     }
 
     incrementPriceOfbooks(percentage) {
-        return (this.data.map(libro => ({ ...libro, price: libro.price * percentage})));
+        return (this.data.map(libro => ({ ...libro, price: libro.price - (libro.price * percentage) })));
     }    
 }
