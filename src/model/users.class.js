@@ -8,7 +8,7 @@ export default class Users {
 
     populate(datos) {
         this.data = datos.map(dato => new User(dato.id, dato.nick, dato.email, dato.password));
-    }    
+    }
 
     addUser(nuevoUsuario) {
         
