@@ -101,27 +101,8 @@ describe('Clase Books', () => {
   });
 
   test('changeBook lanza una excepción si un libro no existe', () => {
-
-    // Si descomento esto, reconoce el `id` como 100.
-    //
-    // const book = new Book({
-    //   id: 100, 
-    //   userId: 2, 
-    //   moduleCode: 'ABCD', 
-    //   publisher: "Apunts", 
-    //   price: 34, 
-    //   pages: 76, 
-    //   status: "bad"
-    // });
-
-    // En cambio, esta línea no aplica bien el `id` y se guarda con valor: 1
-    // el id 1 sí existe, por tanto no va a funcionar la línea de .toThrowError();
-    const book = new Book({id: 100, ...payloadSold});
+    const book = new Book({...payloadSold, id: 100})
     expect(books.changeBook).toBeDefined()
-
-    // Para comprobar que falla
-    console.log('Intentando cambiar el libro con ID:', book.id);
-
     expect(() => books.changeBook(book)).toThrowError();
     expect(books.data.length).toBe(3);
   });

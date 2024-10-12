@@ -139,9 +139,9 @@ function getUserByNickName(users, nick) {
 // < modules: array
 // < modeuleCode: string
 // > return Object
-function getModuleByCode(modules, modeuleCode) {
+function getModuleByCode(modules, moduleCode) {
     
-    let modulo = modules.find(modulo => modulo.code === modeuleCode);
+    let modulo = modules.find(modulo => modulo.code === moduleCode);
     
     if (!modulo) {
         throw new Error("El módulo con código: " + moduleCode + " no se ha encontrado.");
