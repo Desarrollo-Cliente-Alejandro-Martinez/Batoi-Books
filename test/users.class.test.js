@@ -81,11 +81,10 @@ describe('Clase Users', () => {
   });
 
   test('addUser añade un nuevo usuario', async () => {
-    const newMockedUser = { nick: 'user8', email: 'user8@example.com', password: 'pass8' };
+    ////// Se ha añadido la propiedad 'id' con valor '8' ya que sin esto la id coge valor "undefined".
+    const newMockedUser = { id: 8, nick: 'user8', email: 'user8@example.com', password: 'pass8' };
 
     const newUser = await users.addUser(newMockedUser)
-    console.log(newUser);
-    
     expect(newUser).toBeInstanceOf(User)
     expect(users.data).toHaveLength(3)
     expect(newUser.id).toBe(8);

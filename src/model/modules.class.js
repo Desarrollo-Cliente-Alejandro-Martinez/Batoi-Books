@@ -1,3 +1,4 @@
+import { getDBModules } from '../services/modules.api';
 import Module from './module.class'
 
 export default class Modules {
@@ -6,9 +7,11 @@ export default class Modules {
         this.data = [];
     }
 
-    populate(datos) {
-        this.data = datos.map(dato => new Module(dato.code, dato.cliteral, dato.vliteral, dato.courseId));
+    async populate() {
+        this.data = await getDBModules();
+        this.data = this.data.map(modulo => new Module(modulo.code, modulo.cliteral, modulo.vliteral, modulo.courseId));
     }
+
 
     addModule(nuevoModulo) {
         try {
@@ -45,6 +48,7 @@ export default class Modules {
         
         return newModulo;
     }
+
 
     toString() {
         return this.data.map(modulo => 
