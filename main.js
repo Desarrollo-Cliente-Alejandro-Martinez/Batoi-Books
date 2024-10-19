@@ -1,12 +1,8 @@
 import './style.css'
 import logoBatoi from '/logoBatoi.png'
-// import data from './src/services/datos'
-import Modules from './src/model/modules.class'
-import Users from './src/model/users.class'
 import Books from './src/model/books.class'
-
-// import { booksFromUser, booksFromModule, booksWithStatus, incrementPriceOfbooks } from './src/functions'
-// import data from './src/services/datos'
+import Users from './src/model/users.class'
+import Modules from './src/model/modules.class'
 
 document.querySelector('#app').innerHTML = `
   <div class="contenedor">
@@ -16,19 +12,18 @@ document.querySelector('#app').innerHTML = `
   </div>
 `
 
-// const myModules = new Modules();
-// myModules.populate(data.modules);
+const myBooks = new Books();
+const myUsers = new Users();
+const myModules = new Modules();
 
-// const myUsers = new Users();
-// myUsers.populate(data.users);
+await myBooks.populate();
+await myUsers.populate();
+await myModules.populate();
 
-// const myBooks = new Books();
-// myBooks.populate(data.books);
-
-// console.log(`Resultado de data.books: ${data.books}`);
-
-
+// Mostrar todos los datos por consola para ver que populate funciona.
 // console.log(myBooks.toString());
-// console.log(myBooks.booksFromModule("5021"));
-// console.log(myBooks.booksWithStatus("new"));
-// console.log(myBooks.incrementPriceOfbooks(0.1));
+// console.log(myUsers.toString());
+// console.log(myModules.toString());
+
+console.log('Libros del módulo 5021:\n', myBooks.booksFromModule('5021'));
+console.log('Libros con estado "new":\n', myBooks.booksWithStatus('new'));

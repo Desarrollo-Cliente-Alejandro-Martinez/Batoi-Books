@@ -72,7 +72,7 @@ export default class Books {
 
     toString() {
         return this.data.map(libro => 
-            `Id: ${libro.id}. userId: ${libro.userId}. moduleCode: ${libro.moduleCode}. publisher: ${libro.publisher}. price: ${libro.price}. pages: ${libro.pages}. status: ${libro.status}. soldDate: ${libro.soldDate}`
+            `Id: ${libro.id} | UserId: ${libro.userId} | ModuleCode: ${libro.moduleCode} | Publisher: ${libro.publisher} | Price: ${libro.price} | Pages: ${libro.pages} | Status: ${libro.status} | SoldDate: ${libro.soldDate}`
         ).join('\n');
     }
 

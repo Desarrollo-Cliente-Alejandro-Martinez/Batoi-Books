@@ -95,7 +95,7 @@ export default class Users {
 
     toString() {
         return this.data.map(usuario => 
-            `Id: ${usuario.id}. email: ${usuario.email}. nick: ${usuario.nick}. password: ${usuario.password}.`
+            `Id: ${usuario.id} | Email: ${usuario.email} | Nick: ${usuario.nick} | Password: ${usuario.password}.`
         ).join('\n');
     }
 
