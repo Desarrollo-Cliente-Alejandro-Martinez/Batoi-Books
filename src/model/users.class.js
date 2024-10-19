@@ -1,5 +1,5 @@
 import User from './user.class'
-import { getDBUsers, addDBUser, removeDBUser, changeDBUser, changeDBUserPassword } from "../services/users.api";
+import { getDBUsers, getDBUser, addDBUser, removeDBUser, changeDBUser, changeDBUserPassword } from "../services/users.api";
 
 export default class Users {
 
@@ -17,7 +17,7 @@ export default class Users {
 
         try {
 
-            const newUser = new User(nuevoUsuario);
+            const newUser = new User(nuevoUsuario.id, nuevoUsuario.nick, nuevoUsuario.email, nuevoUsuario.password);
             
             await addDBUser(newUser);
  
@@ -29,28 +29,69 @@ export default class Users {
         }
     }
 
-    removeUser(id) {
+    async removeUser(id) {
 
-        if (!this.data.find(usuario => usuario.id === id)) {
-            throw new Error("El usuario con id " + id + " no existe.");
+        // Aquí se debería buscar el usuario con el método 'getDBUser()', pero no hay un handler encargado de eso, así que peta.
+        const usuarioABuscar = this.data.find(usuario => usuario.id === id);
+        if (!usuarioABuscar) {
+            throw new Error(`Error, no se ha encontrado el libro ${id}`);
         }
 
-        this.data = this.data.filter(usuario => usuario.id !== id);
+        try {
+            
+            await removeDBUser(id);
+            
+            this.data = this.data.filter(usuario => usuario.id !== id);
+        
+        } catch (error) {
+            console.error(`Error al eliminar el usuario con id: ${id}. Error: ${error}`);
+        }
     }
 
-    changeUser(usuario) {
+    async changeUser(usuario) {
 
-        const newUsusario = usuario instanceof User ? usuario : new User(usuario.id, usuario.nick, usuario.email, usuario.password);
+        const newUsusario = new User(usuario.id, usuario.nick, usuario.email, usuario.password);        
         const indiceUsuario = this.data.findIndex(usuario => usuario.id == newUsusario.id);
                 
         if (indiceUsuario === -1) {
             throw new Error("El usuario que deseas modificar no existe.");
         }
 
-        this.data[indiceUsuario] = newUsusario;
-        
-        return newUsusario;
+        try {
+
+            const { id, nick, email, password } = await changeDBUser(newUsusario);
+            const usuarioModificado = new User(id, nick, email, password);
+            
+            this.data[indiceUsuario] = usuarioModificado;
+            
+            return usuarioModificado;
+        } catch (error) {
+            console.error(`Error al modificar el usuario: ${usuario}. Error: ${error}`);
+        }
     }
+
+    async changeUserPassword(id, newPass) {
+
+        // Aquí se debería buscar el usuario con el método 'getDBUser()', pero no hay un handler encargado de eso, así que peta.
+        const indiceUsuario = this.data.findIndex(u => u.id == id);
+
+        if (indiceUsuario === -1) {
+            throw new Error("El usuario que deseas modificar no existe.");
+        }
+
+        try {
+
+            const userModiff = await changeDBUserPassword(id, newPass);
+            const userInstance = new User(userModiff.id, userModiff.nick, userModiff.email, userModiff.password);
+            
+            this.data[indiceUsuario] = userInstance;
+
+            return userInstance;
+        } catch (error) {
+            console.error(`Error al modificar la contraseña del usuario con id: ${id}. Error: ${error}`);
+        }
+    }
+
 
     toString() {
         return this.data.map(usuario => 

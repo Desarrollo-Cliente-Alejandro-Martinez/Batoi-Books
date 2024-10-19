@@ -44,7 +44,7 @@ export default class Books {
             this.data = this.data.filter(libro => libro.id !== id);
 
         } catch (error) {
-            console.error(`Error al eliminar el libro: ${libro}. Error: ${error}`);
+            console.error(`Error al eliminar el libro con id: ${id}. Error: ${error}`);
         }
     }
     
@@ -67,7 +67,6 @@ export default class Books {
         } catch (error) {
             console.error(`Error al modificar el libro: ${libro}. Error: ${error}`);
         }
-        
     }
 
 
