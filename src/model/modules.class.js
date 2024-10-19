@@ -11,14 +11,16 @@ export default class Modules {
     }
 
     addModule(nuevoModulo) {
-        
-        nuevoModulo.courseId = (this.data.length > 0 ? Math.max(...this.data.map(modulo => modulo.code)) : 0) + 1;
-        
-        const newModulo = new Module(nuevoModulo.code, nuevoModulo.cliteral, nuevoModulo.vliteral, nuevoModulo.courseId);
-
-        this.data.push(newModulo);
-
-        return newModulo;
+        try {
+            const newModulo = new Module(nuevoModulo);
+            
+            addDBModule(newModulo);
+ 
+            this.data.push(newModulo);    
+            return newModulo;
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     removeModulo(code) {

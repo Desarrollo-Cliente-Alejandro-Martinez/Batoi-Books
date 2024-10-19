@@ -1,4 +1,5 @@
 import Book from './book.class'
+import { getDBBooks, getDBBook, addDBBook, removeDBBook, changeDBBook } from "../services/books.api";
 
 export default class Books {
 
@@ -6,44 +7,69 @@ export default class Books {
         this.data = [];
     }
 
-    populate(datos) {
-        this.data = datos.map(dato => new Book(dato));
+    async populate() {
+        this.data = await getDBBooks();
+        this.data = this.data.map(libro => new Book(libro));
     }
 
-    addBook(nuevoLibro) {
-        
-        const highestId = this.data.length > 0 ? Math.max(...this.data.map(book => book.id)) : 0;
-        nuevoLibro.id = highestId + 1;
-        
-        const newBook = new Book(nuevoLibro);
 
-        this.data.push(newBook);
+    async addBook(nuevoLibro) {
 
-        return newBook;
+        try {
+
+            const newBook = new Book(nuevoLibro);
+            
+            await addDBBook(newBook);
+ 
+            this.data.push(newBook);    
+            return newBook;
+
+        } catch (error) {
+            console.error(`Error al añadir el libro: ${nuevoLibro}. Error: ${error}`);
+        }
     }
 
-    removeBook(id) {
-
-        if (!this.data.find(book => book.id === id)) {
-            throw new Error("El libro con id " + id + " no existe.");
+    async removeBook(id) {
+    
+        // Aquí se debería buscar el libro con el método 'getDBBook()', pero no hay un handler encargado de eso, así que peta.
+        const libroABuscar = this.data.find(libro => libro.id === id);
+        if (!libroABuscar) {
+            throw new Error(`Error, no se ha encontrado el libro: ${id}`);
         }
 
-        this.data = this.data.filter(book => book.id !== id);
+        try {
+            
+            await removeDBBook(id);
+    
+            this.data = this.data.filter(libro => libro.id !== id);
+
+        } catch (error) {
+            console.error(`Error al eliminar el libro: ${libro}. Error: ${error}`);
+        }
     }
+    
 
-    changeBook(libro) {
+    async changeBook(libro) {
 
-        const newBook = libro instanceof Book ? libro : new Book(libro);
+        const newBook = new Book(libro);
         const indiceLibro = this.data.findIndex(book => book.id == newBook.id);
 
         if (indiceLibro === -1) {
             throw new Error("El libro que deseas modificar no existe.");
         }
 
-        this.data[indiceLibro] = newBook;
+        try {
+            const libroModificado = new Book(await changeDBBook(newBook));
+            
+            this.data[indiceLibro] = libroModificado;
+            
+            return libroModificado;
+        } catch (error) {
+            console.error(`Error al modificar el libro: ${libro}. Error: ${error}`);
+        }
         
-        return newBook;
     }
+
 
     toString() {
         return this.data.map(libro => 
@@ -98,8 +124,4 @@ export default class Books {
     booksNotSold() {
         return (this.data.filter(libro => libro.soldDate === ""));
     }
-
-    incrementPriceOfbooks(percentage) {
-        return (this.data.map(libro => ({ ...libro, price: libro.price - (libro.price * percentage) })));
-    }    
 }
