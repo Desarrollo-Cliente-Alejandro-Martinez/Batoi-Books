@@ -52,7 +52,7 @@ export default class Modules {
 
     toString() {
         return this.data.map(modulo => 
-            `Id de módulo: ${modulo.courseId}. code: ${modulo.code}. cliteral: ${modulo.cliteral}. vliteral: ${modulo.vliteral}.`
+            `Id de módulo: ${modulo.courseId} | Code: ${modulo.code} | Cliteral: ${modulo.cliteral} | Vliteral: ${modulo.vliteral}.`
         ).join('\n');
     }
 
