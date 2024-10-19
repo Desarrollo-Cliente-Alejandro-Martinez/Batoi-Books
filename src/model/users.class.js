@@ -1,4 +1,5 @@
 import User from './user.class'
+import { getDBUsers, addDBUser, removeDBUser, changeDBUser, changeDBUserPassword } from "../services/users.api";
 
 export default class Users {
 
@@ -6,19 +7,26 @@ export default class Users {
         this.data = [];
     }
 
-    populate(datos) {
-        this.data = datos.map(dato => new User(dato.id, dato.nick, dato.email, dato.password));
+    async populate() {
+        this.data = await getDBUsers();
+        this.data = this.data.map(usuario => new User(usuario.id, usuario.nick, usuario.email, usuario.password));
     }
 
-    addUser(nuevoUsuario) {
-        
-        nuevoUsuario.id = (this.data.length > 0 ? Math.max(...this.data.map(usuario => usuario.id)) : 0) + 1;
-        
-        const newUser = new User(nuevoUsuario.id, nuevoUsuario.nick, nuevoUsuario.email, nuevoUsuario.password);
+    
+    async addUser(nuevoUsuario) {
 
-        this.data.push(newUser);
+        try {
 
-        return newUser;
+            const newUser = new User(nuevoUsuario);
+            
+            await addDBUser(newUser);
+ 
+            this.data.push(newUser);    
+            return newUser;
+
+        } catch (error) {
+            console.error(`Error al añadir el usuario: ${nuevoUsuario}. Error: ${error}`);
+        }
     }
 
     removeUser(id) {
