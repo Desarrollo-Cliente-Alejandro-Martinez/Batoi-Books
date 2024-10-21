@@ -16,14 +16,19 @@ const myBooks = new Books();
 const myUsers = new Users();
 const myModules = new Modules();
 
-await myBooks.populate();
-await myUsers.populate();
-await myModules.populate();
+Promise.all([
+  myBooks.populate(),
+  myUsers.populate(),
+  myModules.populate()
+]).then(() => {
+  // Mostrar todos los datos por consola después de que las promesas se hayan resuelto
+  console.log(myBooks.toString());
+  console.log(myUsers.toString());
+  console.log(myModules.toString());
 
-// Mostrar todos los datos por consola para ver que populate funciona.
-// console.log(myBooks.toString());
-// console.log(myUsers.toString());
-// console.log(myModules.toString());
-
-console.log('Libros del módulo 5021:\n', myBooks.booksFromModule('5021'));
-console.log('Libros con estado "new":\n', myBooks.booksWithStatus('new'));
+  
+  console.log('Libros del módulo 5021:\n', myBooks.booksFromModule('5021'));
+  console.log('Libros con estado "new":\n', myBooks.booksWithStatus('new'));
+}).catch(error => {
+  console.error("Error populando datos: ", error);
+});
