@@ -1,9 +1,9 @@
 .contenedor {
-    display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    height: 90vh;
+    flex-direction: column; */
+    /* height: 100dvh; */
 }
 
 * {
