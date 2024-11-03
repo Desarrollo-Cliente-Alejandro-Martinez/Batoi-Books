@@ -81,13 +81,12 @@ describe('Clase Users', () => {
   });
 
   test('addUser añade un nuevo usuario', async () => {
-    ////// Se ha añadido la propiedad 'id' con valor '8' ya que sin esto la id coge valor "undefined".
-    const newMockedUser = { id: 8, nick: 'user8', email: 'user8@example.com', password: 'pass8' };
+    const newMockedUser = { nick: 'user8', email: 'user8@example.com', password: 'pass8' };
 
     const newUser = await users.addUser(newMockedUser)
     expect(newUser).toBeInstanceOf(User)
     expect(users.data).toHaveLength(3)
-    // expect(newUser.id).toBe(8);
+    expect(newUser.id).toBe(8);
     expect(newUser.email).toBe(newMockedUser.email);
     expect(newUser.nick).toBe(newMockedUser.nick);
     expect(newUser.password).toBe(newMockedUser.password);
@@ -134,8 +133,7 @@ describe('Clase Users', () => {
 
   test('changeUserPassword lanza una excepción si un usuario no existe', async () => {
     const user = new User(100, 'nick', 'email', 'pass')
-    expect(users.changeUserPassword).toBeDefined()
-    await (expect(() => users.changeUserPassword(100, 'newPassword'))).rejects.toThrowError()
+    await (expect(users.changeUserPassword(100, 'newPassword'))).rejects.toThrowError()
   })
 
   test('toString pinta correctamente los usuarios', async () => {
@@ -150,9 +148,9 @@ describe('Clase Users', () => {
     expect(response.id).toBe(3)
   });
   
-  // test('getUserById 100 devuelve un error', async () => {
-  //   await expect(users.getUserById(100)).rejects.toThrowError()
-  // });
+  test('getUserById 100 devuelve un error', async () => {
+    await expect(users.getUserById(100)).rejects.toThrowError()
+  });
 
   test('getUserIndexById 7 devuelve la posición del usuario con id 7', () => {
     const index = users.getUserIndexById(7)

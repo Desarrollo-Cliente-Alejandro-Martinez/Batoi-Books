@@ -41,17 +41,19 @@ document.querySelector('#app').innerHTML = `
 
       <div>
         <label for="price">Precio:</label>
-        <input type="number" id="price">
+        <input type="number" id="price" required>
       </div>
 
       <div>
         <label for="pages">Páginas:</label>
-        <input type="number" id="pages">
+        <input type="number" id="pages" required>
       </div>
 
       <div>
         <label>Estado:</label>
-        <!-- Aquí poned un radiobutton para cada estado -->
+        <input type="radio" name="status" value="new" checked required>Nuevo
+        <input type="radio" name="status" value="good" required>Bueno
+        <input type="radio" name="status" value="bad" required>Malo
       </div>
 
       <div>

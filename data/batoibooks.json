@@ -2197,6 +2197,41 @@
       "comments": "",
       "soldDate": "",
       "id": "10"
+    },
+    {
+      "id": "df3b",
+      "moduleCode": "0045",
+      "publisher": "312123",
+      "price": 312123,
+      "pages": 312123,
+      "status": "new",
+      "photo": "",
+      "comments": "",
+      "soldDate": ""
+    },
+    {
+      "id": "51",
+      "userId": 2,
+      "moduleCode": "5025",
+      "publisher": "Apunts",
+      "price": 12,
+      "pages": 25,
+      "status": "good",
+      "photo": "",
+      "comments": "",
+      "soldDate": "2023-02-01"
+    },
+    {
+      "id": "52",
+      "userId": 2,
+      "moduleCode": "5025",
+      "publisher": "Apunts",
+      "price": 12,
+      "pages": 25,
+      "status": "good",
+      "photo": "",
+      "comments": "",
+      "soldDate": "2023-02-01"
     }
   ]
 }

@@ -18,6 +18,7 @@ async function getDBUsers() {
 
     } catch (error) {
         console.error('Error al obtener todos los usuarios: ', error);
+        throw error;
     }
 }
 
@@ -40,6 +41,7 @@ async function getDBUser(userId) {
 
     } catch (error) {
         console.error('Error al obtener el usuario: ', error);        
+        throw error;
     }
 }
 
@@ -60,6 +62,7 @@ async function addDBUser(usuario) {
         }
     } catch (error) {
         console.error('Error al añadir el usuario: ', error);
+        throw error;
     }
 }
 
@@ -78,6 +81,7 @@ async function removeDBUser(userId) {
         return await response.json();
     } catch (error) {
         console.error('Error al eliminar el usuario: ', error);
+        throw error;
     }
 }
 
@@ -100,6 +104,7 @@ async function changeDBUser(user) {
         return await response.json();
     } catch (error) {
         console.error('Error al modificar el usuario: ', error);
+        throw error;
     }
 }
 
