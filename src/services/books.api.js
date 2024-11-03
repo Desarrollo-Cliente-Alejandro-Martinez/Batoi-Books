@@ -18,6 +18,7 @@ async function getDBBooks() {
 
     } catch (error) {
         console.error('Error al obtener todos los libros: ', error);
+        throw error;
     }
 }
 
@@ -40,6 +41,7 @@ async function getDBBook(bookId) {
 
     } catch (error) {
         console.error('Error al obtener el libro: ', error);
+        throw error;
     }
 }
 
@@ -60,6 +62,7 @@ async function addDBBook(libro) {
         }
     } catch (error) {
         console.error('Error al añadir el libro: ', error);
+        throw error;
     }
 }
 
@@ -78,6 +81,7 @@ async function removeDBBook(bookId) {
         return await response.json();
     } catch (error) {
         console.error('Error al eliminar el libro: ', error);
+        throw error;
     }
 }
 
@@ -100,6 +104,7 @@ async function changeDBBook(libro) {
         return await response.json();
     } catch (error) {
         console.error('Error al modificar el libro: ', error);
+        throw error;
     }
 }
 

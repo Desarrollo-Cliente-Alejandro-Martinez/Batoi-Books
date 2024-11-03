@@ -25,7 +25,7 @@ export default class Books {
             return newBook;
 
         } catch (error) {
-            console.error(`Error al añadir el libro: ${nuevoLibro}. Error: ${error}`);
+            throw new Error(`Error al añadir el libro: ${nuevoLibro}. Error: ${error}`);
         }
     }
 
@@ -34,7 +34,7 @@ export default class Books {
         // Aquí se debería buscar el libro con el método 'getDBBook()', pero no hay un handler encargado de eso, así que peta.
         const libroABuscar = this.data.find(libro => libro.id === id);
         if (!libroABuscar) {
-            throw new Error(`Error, no se ha encontrado el libro: ${id}`);
+            throw new Error(`No se ha podido encontrar el libro: ${id}`);
         }
 
         try {
@@ -44,7 +44,7 @@ export default class Books {
             this.data = this.data.filter(libro => libro.id !== id);
 
         } catch (error) {
-            console.error(`Error al eliminar el libro con id: ${id}. Error: ${error}`);
+            throw new Error(`Error al eliminar el libro con id: ${id}. Error: ${error}`);
         }
     }
     
@@ -65,7 +65,7 @@ export default class Books {
             
             return libroModificado;
         } catch (error) {
-            console.error(`Error al modificar el libro: ${libro}. Error: ${error}`);
+            throw new Error(`Error al modificar el libro: ${libro}. Error: ${error}`);
         }
     }
 

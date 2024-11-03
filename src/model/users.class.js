@@ -25,7 +25,7 @@ export default class Users {
             return newUser;
 
         } catch (error) {
-            console.error(`Error al añadir el usuario: ${nuevoUsuario}. Error: ${error}`);
+            throw new Error(`Error al añadir el usuario: ${nuevoUsuario}. Error: ${error}`);
         }
     }
 
@@ -44,7 +44,7 @@ export default class Users {
             this.data = this.data.filter(usuario => usuario.id !== id);
         
         } catch (error) {
-            console.error(`Error al eliminar el usuario con id: ${id}. Error: ${error}`);
+            throw new Error(`Error al eliminar el usuario con id: ${id}. Error: ${error}`);
         }
     }
 
@@ -66,7 +66,7 @@ export default class Users {
             
             return usuarioModificado;
         } catch (error) {
-            console.error(`Error al modificar el usuario: ${usuario}. Error: ${error}`);
+            throw new Error(`Error al modificar el usuario: ${usuario}. Error: ${error}`);
         }
     }
 
@@ -88,7 +88,7 @@ export default class Users {
 
             return userInstance;
         } catch (error) {
-            console.error(`Error al modificar la contraseña del usuario con id: ${id}. Error: ${error}`);
+            throw new Error("`Error al modificar la contraseña del usuario con id: ${id}. Error: ${error}`");
         }
     }
 

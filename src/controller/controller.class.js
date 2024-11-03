@@ -33,16 +33,33 @@ export default class Controller {
 
         } catch (error) {
             console.log(error);
+            document.getElementById("messages").textContent = "Error: " + error.message; // Cambia aquí para incluir el mensaje de error
         }
     }
 
-    handleSubmitBook(payload) {
-        alert('Formulario enviado');
-        console.log(payload);
+    async handleSubmitBook(payload) {
+        
+        try {
+
+            const newBook = await this.model.books.addBook(payload);
+            this.view.renderBook(newBook);
+            
+        } catch (error) {
+            this.view.renderUserMessage("error", error.message);            
+            console.log(error);
+        }
+        
     }
 
-    handleRemoveBook(id) {
-        alert('Libro borrado');
-        console.log(id);
+    async handleRemoveBook(id) {
+
+        try {
+            
+            await this.model.books.removeBook(id);
+            this.view.renderRemovedBook(id);
+
+        } catch (error) {
+            this.view.renderUserMessage("error", "Error al eliminar el libro.");
+        }
     }
 }

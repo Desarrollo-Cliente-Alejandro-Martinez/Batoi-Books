@@ -18,5 +18,6 @@ export async function getDBModules() {
         
     } catch (error) {
         console.error('Error al obtener todos los módulos: ', error);
+        throw error;
     }
 }
