@@ -26,16 +26,22 @@ export default class View {
         newBook.className = 'card';
         newBook.id = book.id;
 
+        const sold = book.soldDate === '' ? "green" : "red";
+        const bookStatus = book.status === "new" ? "blue" : (book.status === "good") ? "green" : "red";
+
         newBook.innerHTML = `
-            <img src="${book.photo || '../../public/default.jpeg'}" alt="Libro: ${book.id}">
-            <div>
-                <h3>Código: ${book.moduleCode} (ID: ${book.id})</h3>
-                <h4>Editorial: ${book.publisher}</h4>
-                <p>Páginas: ${book.pages}</p>
-                <p>Estado: ${(book.status === "new") ? "Nuevo" : (book.status === "good") ? "Bueno" : "Malo"}</p>
-                <p>${book.soldDate === '' ? 'En venta' : `Vendido el ${book.soldDate}`}</p>
-                <p>${book.comments || 'Sin comentarios adicionales'}</p>
-                <h4>${parseFloat(book.price).toFixed(2)} €</h4>
+            <img src="${book.photo || '../../public/default.jpeg'}" alt="Libro: ${book.id}" class="card-image">
+            <div class="card-details">
+                <h3 class="card-title">Código: ${book.moduleCode} | ID: ${book.id}</h3>
+                <h4 class="card-publisher">
+                    <span class="label">Editorial:</span>
+                    <span class="name">${book.publisher}</span>
+                </h4>
+                <p class="card-pages">Páginas: ${book.pages}</p>
+                <p class="card-condition">Estado: <span class="${bookStatus}">${(book.status === "new") ? "Nuevo" : (book.status === "good") ? "Bueno" : "Malo"}</span></p>
+                <p class="card-sold ${sold}">${book.soldDate === '' ? 'En venta' : `Vendido el ${book.soldDate}`}</p>
+                <p class="card-comments">${book.comments || 'Sin comentarios adicionales'}</p>
+                <h4 class="card-price ${sold}">${parseFloat(book.price).toFixed(2)} €</h4>
             </div>`;
 
         this.bookList.appendChild(newBook);
@@ -56,6 +62,10 @@ export default class View {
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="this.parentElement.remove()">x</button>`;
 
         this.messages.appendChild(newMessage);
+
+        if (type !== "error") {
+            setTimeout(() => newMessage.remove(), 3000);
+        }
     }
 
 

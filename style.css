@@ -1,20 +1,504 @@
-.contenedor {
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; */
-    /* height: 100dvh; */
-}
-
+/* Estilos generales */
 * {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
 }
 
-h1 {
-    color: #264f72;
-    margin-top: 50px;
+
+/* Estilos de todo el header */
+header {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: 
+    "logo menu";
+    background-color: #333;
 }
 
+/* Estilos del contenedor del título */
+.tittle {
+    grid-area: logo;
+    display: flex;
+    color: white;
+    padding-left: 10px;
+}
+
+/* Estilos del logo de batoi */
+.tittle img {
+    width: 100px;
+    margin: 15px;
+    background-color: white;
+}
+
+/* Estilos del título del header */
+.tittle h1 {
+    align-self: center;
+    padding-left: 25px;
+    font-size: 3em;
+}
+
+/* Estilos del menú */
+header nav {
+    grid-area: menu;
+    justify-self: right;
+    align-self: center;
+    padding-right: 10px;
+}
+
+header nav ul {
+    list-style-type: none;
+    gap: 10px;
+}
+
+header nav ul li {
+    display: inline-block;
+    padding: 10px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #FFA726;
+    font-size: 1.4em;
+    transition: box-shadow 0.2s ease, color 0.2s ease;
+}
+
+header nav ul li:hover a {
+    color: #da8300;
+    box-shadow: 0px 2px 0px #da8300;
+}
+
+
+
+/* Estilos generales */
 p {
+    color: #E0E0E0;
+}
+
+button {
+    background-color: #FF5722;
+    color: #FFFFFF;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 7px;
+    font-size: 0.85em;
     font-weight: bold;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #E64A19;
+    cursor: pointer;
+}
+
+
+
+/* Estilos del formulario */
+#form {
+    margin: 30px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: 
+    "bookForm removeForm"
+    "bookForm .";
+    gap: 30px
+}
+
+#bookForm {
+    grid-area: bookForm;
+}
+
+
+
+.remove-form {
+    grid-area: removeForm;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.3fr repeat(2, 0.7fr);
+    grid-template-areas: 
+        "label"
+        "input"
+        "button";
+    gap: 10px;
+
+    background-color: gray;
+    padding: 20px;
+    border-radius: 10px;
+
+    label {
+        grid-area: label;
+        justify-self: center;
+        font-size: 1.8em;
+        align-self: center;
+        font-weight: bold;
+        color: white;    
+    }
+
+    input {
+        grid-area: input;
+        padding: 20px!important;
+        font-size: x-large;
+        font-weight: bold;
+    }
+
+    button {
+        grid-area: button;
+        font-size: 1.5em;
+    }
+}
+
+.input-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 15px;
+    min-height: 55px;
+    margin-bottom: 5px;
+
+    label {
+        min-width: 130px;
+        align-self: center;
+        text-align: left;
+        font-weight: bold;
+        font-size: 1.3em;
+        color: white;
+    }
+}
+
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: solid 1px #000;
+    border-radius: 10px;
+    min-height: 50px;
+    
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    max-width: fit-content;
+    min-width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+
+    resize: vertical;
+    max-height: 114px;
+    min-height: 64px;
+
+    border: solid 1px #000;
+    border-radius: 10px;
+
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+
+/* Estilos para los radio buttons */
+.radio-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 9px;
+
+    label {
+        display: flex;
+        align-items: center;
+        background-color: #444;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    label:hover {
+        background-color: #555;
+    }
+
+    input[type="radio"] {
+        margin-right: 10px;
+        accent-color: #FF5722;
+    }
+
+    input[type="radio"]:checked + label {
+        color: #FFA726;
+        font-weight: bold;
+    }
+}
+
+
+.form-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 10px;
+    min-height: 55px;
+
+    font-size: 1.5em;
+}
+
+
+
+#bookForm {
+    background-color: grey;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+#app {
+    background-color: #1E1E1E;
+}
+
+
+
+/* Estilos de la lista de libros */
+#list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 30px;
+    margin: 40px 30px;
+}
+
+.card {
+    background-color: gray;
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+
+    img {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .card-title {
+        font-size: 2.2em;
+        font-weight: bold;
+        color: #FFA726;
+        text-align: center;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        margin-bottom: 10px;
+        padding: 5px;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+    
+    .card-publisher {
+        margin-bottom: 10px;
+
+        .label {
+            font-weight: bold;
+            display: block;
+            font-size: 1.2em;
+            color: #d6d6d6;
+        }
+
+        .name {
+            display: block;
+            font-size: 1.6em;
+            color: #333;
+        }
+    }
+
+    .card-pages {
+        font-size: 1.3em;
+        font-weight: bold;
+    }
+
+    .card-condition {
+        font-size: 1.3em;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .card-sold {
+        font-size: 1.6em;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .card-comments {
+        padding: 10px;
+        background-color: #313131;
+        border-radius: 10px;
+    }
+
+    .card-price {
+        font-size: 1.8em;
+        text-align: right;
+        margin-top: 12px;
+        font-weight: bold;
+    }
+}
+  
+.card:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+
+
+/* Colores */
+.red {
+    color: orangered;
+}
+
+.green {
+    color: greenyellow;
+}
+
+.blue {
+    color: rgb(139, 223, 235);
+}
+
+
+/* Footer */
+#about {
+    background-color: #333;
+    padding: 30px;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+
+
+/* Tamaños personalizados del título según el tamaño de la pantalla */
+@media (max-width: 2000px) {
+    .card-title {
+        font-size: 2.2em!important;
+    }
+}
+
+@media (max-width: 1602px) {
+    .card-title {
+        font-size: 1.6em!important;
+    }
+}
+
+@media (max-width: 1265px) {
+    .card-title {
+        font-size: 1.15em!important;
+    }
+}
+
+
+
+/* Elementos del formulario borrar libros en una única columna */
+@media (max-width: 1290px) {
+    .remove-form {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.3fr repeat(2, 0.7fr);
+        grid-template-areas: 
+            "label"
+            "input"
+            "button";
+    }
+}
+
+/* Header dividido en 1 columna y 2 filas para una correcta visualización */
+@media (max-width: 860px) {
+    header {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 0.5fr;
+        grid-template-areas:
+            "logo"
+            "menu";
+    
+        nav {
+            justify-self: center;
+            padding: 0px;
+        }
+    }
+}
+
+
+/* Tamaños responsive */
+@media (min-width: 768px) and (max-width: 1023px) {
+    
+    #form {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.5fr 1fr;
+        grid-template-areas: 
+        "removeForm"
+        "bookForm";
+        gap: 30px
+    }
+
+    #list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .card-title {
+        font-size: 1.5em!important;
+    }
+}
+
+
+@media (max-width: 767px) {
+    
+    #form {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.3fr 1fr;
+        grid-template-areas: 
+        "removeForm"
+        "bookForm";
+        gap: 30px
+    }
+
+    .form-buttons {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        gap: 15px;
+
+        button[type="submit"] {
+            grid-row: 1;
+        min-height: 55px;
+        }
+
+        button[type="reset"] {
+            grid-row: 2;
+            min-height: 55px;
+        }
+    }
+
+    .radio-buttons label {
+        width: -webkit-fill-available;
+    }
+
+    .input-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 2fr;
+        gap: 5px;
+        margin-bottom: 15px;
+    }
+
+    #list {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .card-title {
+        font-size: 2em!important;
+    }
 }
