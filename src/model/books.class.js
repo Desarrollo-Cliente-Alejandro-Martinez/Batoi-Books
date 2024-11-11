@@ -17,8 +17,9 @@ export default class Books {
 
         try {
 
-            const newBook = new Book(nuevoLibro);
-            
+            const lastId = (this.getLastId() + 1);
+            const newBook = new Book({ id: String(lastId), ...nuevoLibro });
+                        
             await addDBBook(newBook);
  
             this.data.push(newBook);    
@@ -77,6 +78,12 @@ export default class Books {
     }
 
 
+
+    getLastId() {
+        if (this.data.length === 0) return 0;
+        return this.data.reduce((maxId, libro) => Math.max(maxId, libro.id), 0);
+    }
+    
 
     getBookById(bookId) {
         return this.data.find(libro => libro.id === bookId) || (() => { throw new Error("No se ha encontrado el libro.") })();

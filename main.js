@@ -29,8 +29,8 @@ document.querySelector('#app').innerHTML = `
     <form id="bookForm">
       <div class="input-container">
         <label for="id-module">Módulo:</label>
-        <select id="id-module">
-          <option>- Selecciona un módulo -</option>
+        <select id="id-module" required>
+          <option value="">- Selecciona un módulo -</option>
         </select>
       </div>
 

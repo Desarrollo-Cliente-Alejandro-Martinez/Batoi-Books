@@ -2221,6 +2221,17 @@
       "photo": "",
       "comments": "",
       "soldDate": "2023-02-01"
+    },
+    {
+      "id": "53",
+      "moduleCode": "0020",
+      "publisher": "Santillana",
+      "price": "20",
+      "pages": "200",
+      "status": "good",
+      "photo": "",
+      "comments": "Tiene un rasguño en la portada.",
+      "soldDate": ""
     }
   ]
 }
