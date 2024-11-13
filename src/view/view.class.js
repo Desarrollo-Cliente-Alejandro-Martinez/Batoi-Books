@@ -42,6 +42,16 @@ export default class View {
                 <p class="card-sold ${sold}">${book.soldDate === '' ? 'En venta' : `Vendido el ${book.soldDate}`}</p>
                 <p class="card-comments">${book.comments || 'Sin comentarios adicionales'}</p>
                 <h4 class="card-price ${sold}">${parseFloat(book.price).toFixed(2)} €</h4>
+
+                <button>
+                    <span class="material-icons">add_shopping_cart</span>
+                </button>
+                <button>
+                    <span class="material-icons">edit</span>
+                </button>
+                <button>
+                    <span class="material-icons">delete</span>
+                </button>
             </div>`;
 
         this.bookList.appendChild(newBook);
@@ -68,6 +78,87 @@ export default class View {
         }
     }
 
+    renderFormToEditBook(bookID) {
+        
+        // Cambios en títulos y botones
+        document.getElementById('title-form').textContent = "Editar libro";
+        document.getElementById('submitButton').textContent = "Cambiar";
+        document.getElementById('resetButton').textContent = "Cancelar";
+        document.getElementById('campoID').classList.remove('hidden');
+
+        const card = document.getElementById(bookID);
+                
+        // Autocompletado de los campos en edit form
+        document.getElementById('id').value = bookID;
+        document.getElementById('id-module').value = card.querySelector('.card-title').textContent.split(":")[1].split("|")[0].trim();
+        document.getElementById('publisher').value = card.querySelector('.name').textContent;
+        document.getElementById('price').value = parseFloat(card.querySelector('.card-price').textContent).toFixed(2);
+        document.getElementById('pages').value = card.querySelector('.card-pages').textContent.match(/\d+/);
+        document.getElementById('comments').value = card.querySelector('.card-comments').textContent;
+        
+        // Estado del libro
+        const statusText = card.querySelector('.card-condition span').textContent.toLowerCase();
+        const statusMap = {
+            "nuevo": "new",
+            "bueno": "good",
+            "malo": "bad"
+        };
+        const statusValue = statusMap[statusText];
+        document.querySelector(`input[name="status"][value="${statusValue}"]`).checked = true;        
+    }
+
+    renderFormToAddBook() {
+        document.getElementById('title-form').textContent = "Añadir libro";
+        document.getElementById('submitButton').textContent = "Añadir";
+        document.getElementById('resetButton').textContent = "Reset";
+        document.getElementById('campoID').classList.add('hidden');
+
+        document.getElementById('id').value = null;
+        document.getElementById('id-module').value = null;
+        document.getElementById('publisher').value = null;
+        document.getElementById('price').value = null;
+        document.getElementById('pages').value = null;
+        
+        const statusInputs = document.querySelectorAll('input[name="status"]');
+        if (statusInputs.length > 0) {
+            statusInputs[0].checked = true;
+        }
+        
+        document.getElementById('comments').value = null;
+    }
+
+    renderEditBook(updatedBook) {
+        const bookCard = document.getElementById(updatedBook.id);
+        if (bookCard) {
+            const sold = updatedBook.soldDate === '' ? "green" : "red";
+            const bookStatus = updatedBook.status === "new" ? "blue" : (updatedBook.status === "good") ? "green" : "red";
+
+            bookCard.innerHTML = `
+                <img src="${updatedBook.photo || '../../public/default.jpeg'}" alt="Libro: ${updatedBook.id}" class="card-image">
+                <div class="card-details">
+                    <h3 class="card-title">Código: ${updatedBook.moduleCode} | ID: ${updatedBook.id}</h3>
+                    <h4 class="card-publisher">
+                        <span class="label">Editorial:</span>
+                        <span class="name">${updatedBook.publisher}</span>
+                    </h4>
+                    <p class="card-pages">Páginas: ${updatedBook.pages}</p>
+                    <p class="card-condition">Estado: <span class="${bookStatus}">${updatedBook.status === "new" ? "Nuevo" : updatedBook.status === "good" ? "Bueno" : "Malo"}</span></p>
+                    <p class="card-sold ${sold}">${updatedBook.soldDate === '' ? 'En venta' : `Vendido el ${updatedBook.soldDate}`}</p>
+                    <p class="card-comments">${updatedBook.comments || 'Sin comentarios adicionales'}</p>
+                    <h4 class="card-price ${sold}">${parseFloat(updatedBook.price).toFixed(2)} €</h4>
+
+                    <button>
+                        <span class="material-icons">add_shopping_cart</span>
+                    </button>
+                    <button>
+                        <span class="material-icons">edit</span>
+                    </button>
+                    <button>
+                        <span class="material-icons">delete</span>
+                    </button>
+                </div>`;
+        }
+    }
 
     setBookSubmitHandler(callback) {  
         this.bookForm.addEventListener('submit', (event) => {
@@ -83,13 +174,30 @@ export default class View {
             callback({moduleCode, publisher, price, pages, status, comments});
         })
     }
+
+    setBookListEventHandler(callback) {
+        this.bookList.addEventListener('click', (event) => {
+            const button = event.target.closest('button');
+            if (!button) return;
+            
+            const action = button.querySelector('span.material-icons').textContent;
+            const bookCard = button.closest('.card');
+            const bookId = bookCard ? bookCard.id : null;
+
+            if (action === 'add_shopping_cart') {
+                callback('add', bookId);
+            } else if (action === 'edit') {
+                callback('edit', bookId);
+            } else if (action === 'delete') {
+                callback('delete', bookId);
+            }
+        });
+    }
     
-    setBookRemoveHandler(callback) {
-        this.remove.addEventListener('click', () => {
-
-            const idToRemove = document.getElementById("id-remove").value;
-
-            callback(idToRemove);
-        })
+    setCancelButtonHandler(callback) {
+        document.getElementById('resetButton').addEventListener('click', (event) => {
+            event.preventDefault();
+            callback();
+        });
     }
 }

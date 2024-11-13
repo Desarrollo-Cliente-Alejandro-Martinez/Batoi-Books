@@ -8,3 +8,4 @@ Ramas del proyecto según actividad:
  - [**3-Clases**](https://github.com/Desarrollo-Cliente-Alejandro-Martinez/Batoi-Books/tree/3-Clases): Rama con el código del apartado de las clases del proyecto.
  - [**4-Persistencia**](https://github.com/Desarrollo-Cliente-Alejandro-Martinez/Batoi-Books/tree/4-Persistencia): Rama con el código del apartado de persistencia del proyecto.
  - [**5-DOM**](https://github.com/Desarrollo-Cliente-Alejandro-Martinez/Batoi-Books/tree/5-DOM): Rama con el código del apartado de DOM del proyecto.
+ - [**6-Eventos**](https://github.com/Desarrollo-Cliente-Alejandro-Martinez/Batoi-Books/tree/6-Eventos): Rama con el código del apartado de eventos del proyecto.

@@ -11,6 +11,7 @@
 header {
     width: 100%;
     position: sticky;
+    z-index: 1;
     top: 0;
     display: grid;
     grid-template-rows: 1fr;
@@ -102,11 +103,10 @@ button:hover {
 #form {
     margin: 30px;
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
     grid-template-areas: 
-    "bookForm removeForm"
-    "bookForm .";
+        "bookForm";
     gap: 30px
 }
 
@@ -362,6 +362,18 @@ textarea {
 .blue {
     color: rgb(139, 223, 235);
 }
+
+
+.hidden {
+    display: none;
+}
+
+#id {
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em!important;
+}
+
 
 
 /* Footer */

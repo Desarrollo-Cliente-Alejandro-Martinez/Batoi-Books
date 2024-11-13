@@ -2232,6 +2232,72 @@
       "photo": "",
       "comments": "Tiene un rasguño en la portada.",
       "soldDate": ""
+    },
+    {
+      "id": "54",
+      "moduleCode": "0011",
+      "publisher": "JordiLAND",
+      "price": "50",
+      "pages": "10",
+      "status": "bad",
+      "photo": "",
+      "comments": "Está reventado",
+      "soldDate": ""
+    },
+    {
+      "id": "55",
+      "moduleCode": "0020",
+      "publisher": "asdasd",
+      "price": "123",
+      "pages": "1",
+      "status": "good",
+      "photo": "",
+      "comments": "yyy",
+      "soldDate": ""
+    },
+    {
+      "id": "56",
+      "moduleCode": "5025",
+      "publisher": "Apunts",
+      "price": "12.00",
+      "pages": "25",
+      "status": "good",
+      "photo": "",
+      "comments": "Sin comentarios adicionales",
+      "soldDate": ""
+    },
+    {
+      "id": "57",
+      "moduleCode": "5025",
+      "publisher": "Apunts",
+      "price": "12.00",
+      "pages": "25",
+      "status": "good",
+      "photo": "",
+      "comments": "Sin comentarios adicionales",
+      "soldDate": ""
+    },
+    {
+      "id": "58",
+      "moduleCode": "5025",
+      "publisher": "Apunts",
+      "price": "12.00",
+      "pages": "25",
+      "status": "good",
+      "photo": "",
+      "comments": "Sin comentarios adicionales",
+      "soldDate": ""
+    },
+    {
+      "id": "59",
+      "moduleCode": "5025",
+      "publisher": "Apunts",
+      "price": "12.00",
+      "pages": "25",
+      "status": "good",
+      "photo": "",
+      "comments": "Raspón en la parte de atrás.",
+      "soldDate": ""
     }
   ]
 }
