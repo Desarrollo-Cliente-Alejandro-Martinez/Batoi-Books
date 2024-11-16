@@ -3,6 +3,7 @@ import Modules from "../model/modules.class";
 import Users from "../model/users.class";
 import View from "../view/view.class";
 import Cart from "../model/cart.class";
+import Router from "../services/Router";
 
 export default class Controller {
     
@@ -16,6 +17,7 @@ export default class Controller {
         };
 
         this.view = new View();
+        this.router = new Router(this.view);
     }
 
     async init() {
@@ -84,6 +86,8 @@ export default class Controller {
 
     handleCancelEdit() {        
         this.view.renderFormToAddBook();
+        window.history.pushState({}, '', '#list');
+        this.router.onHashChange();
     }
 
     async bookChanges(libro) {
@@ -126,11 +130,10 @@ export default class Controller {
     editBook(bookId) {
         this.view.renderFormToEditBook(bookId);
 
-        const formElement = document.getElementById('bookForm');
-        const offset = -150;
-        const y = formElement.getBoundingClientRect().top + window.scrollY + offset;
+        window.history.pushState({}, '', '#form');
+        this.router.onHashChange();
 
-        window.scrollTo({ top: y, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     removeBook(bookId) {
