@@ -23,7 +23,7 @@ document.querySelector('#app').innerHTML = `
     <form id="bookForm">
       <h1 id="title-form">Añadir libro</h1>
 
-      <div id="campoID" class="input-container hidden">
+      <div id="campoID" class="input-container" hidden>
         <label for="id">ID:</label>
         <input type="number" id="id" disabled>
       </div>
@@ -42,7 +42,7 @@ document.querySelector('#app').innerHTML = `
 
       <div class="input-container">
         <label for="price">Precio:</label>
-        <input type="number" id="price" required>
+        <input type="number" id="price" step="0.01" min="0" max="300" required>
       </div>
 
       <div class="input-container">

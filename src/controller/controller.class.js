@@ -43,11 +43,18 @@ export default class Controller {
     async handleSubmitBook(payload) {
         
         try {
-            
+
             const bookId = document.getElementById('id').value;
             
             if (bookId) {
                 // Si hay un ID, significa que estamos editando un libro
+                const originalBook = this.model.books.getBookById(bookId);
+                
+                if (this.areBooksEqual(originalBook, payload)) {
+                    this.view.renderUserMessage("info", "No se han detectado cambios en el libro.");
+                    return;
+                }
+                
                 payload.id = bookId;
                 const updatedBook = await this.model.books.changeBook(payload);
                 this.view.renderEditBook(updatedBook);
@@ -100,20 +107,15 @@ export default class Controller {
     }
 
     handleBookButtonClicked(action, bookID) {
-        
-        switch (action) {
-            case 'add':
-                this.addToCart(bookID);
-                break;
-            case 'edit':
-                this.editBook(bookID);
-                break;
-            case 'delete':
-                this.removeBook(bookID);
-                break;
-            default:
-                break;
-        }
+
+        const options = {
+            add: (id) => this.addToCart(id),
+            edit: (id) => this.editBook(id),
+            delete: (id) => this.removeBook(id),
+            default: () => console.error("Invalid action")
+        };
+
+        return (options[action] || options['default'])(bookID);
     }
 
     addToCart(bookId) {
@@ -123,9 +125,26 @@ export default class Controller {
 
     editBook(bookId) {
         this.view.renderFormToEditBook(bookId);
+
+        const formElement = document.getElementById('bookForm');
+        const offset = -150;
+        const y = formElement.getBoundingClientRect().top + window.scrollY + offset;
+
+        window.scrollTo({ top: y, behavior: 'smooth' });
     }
 
     removeBook(bookId) {
         this.handleRemoveBook(bookId);
     }
+
+    areBooksEqual(originalBook, newBookData) {
+        return (
+            originalBook.moduleCode === newBookData.moduleCode &&
+            originalBook.publisher === newBookData.publisher &&
+            parseFloat(originalBook.price).toFixed(2) === parseFloat(newBookData.price).toFixed(2) &&
+            parseInt(originalBook.pages) === parseInt(newBookData.pages, 10) &&
+            originalBook.status === newBookData.status &&
+            originalBook.comments === newBookData.comments
+        );
+    }    
 }

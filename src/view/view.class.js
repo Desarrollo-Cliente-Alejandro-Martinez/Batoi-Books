@@ -84,7 +84,7 @@ export default class View {
         document.getElementById('title-form').textContent = "Editar libro";
         document.getElementById('submitButton').textContent = "Cambiar";
         document.getElementById('resetButton').textContent = "Cancelar";
-        document.getElementById('campoID').classList.remove('hidden');
+        document.getElementById('campoID').removeAttribute('hidden');
 
         const card = document.getElementById(bookID);
                 
@@ -111,7 +111,7 @@ export default class View {
         document.getElementById('title-form').textContent = "Añadir libro";
         document.getElementById('submitButton').textContent = "Añadir";
         document.getElementById('resetButton').textContent = "Reset";
-        document.getElementById('campoID').classList.add('hidden');
+        document.getElementById('campoID').setAttribute('hidden', '');
 
         document.getElementById('id').value = null;
         document.getElementById('id-module').value = null;
@@ -167,7 +167,7 @@ export default class View {
             const moduleCode = document.getElementById('id-module').value;
             const publisher = document.getElementById('publisher').value;
             const price = document.getElementById('price').value;
-            const pages = document.getElementById('pages').value;
+            const pages = parseInt(document.getElementById('pages').value);
             const status = document.querySelector('input[name="status"]:checked')?.value;
             const comments = document.getElementById('comments').value;
 
