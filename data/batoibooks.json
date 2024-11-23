@@ -2337,6 +2337,17 @@
       "photo": "",
       "comments": "",
       "soldDate": ""
+    },
+    {
+      "id": "66",
+      "moduleCode": "0210",
+      "publisher": "a",
+      "price": 1,
+      "pages": 1,
+      "status": "new",
+      "photo": "",
+      "comments": "",
+      "soldDate": ""
     }
   ]
 }

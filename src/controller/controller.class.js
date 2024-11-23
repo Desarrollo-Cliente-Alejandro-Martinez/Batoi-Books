@@ -42,11 +42,38 @@ export default class Controller {
         }
     }
 
+    async validateModuleDuplication(userId, moduleCode) {
+        try {
+            // Realizamos la petición GET a la API para comprobar si existe un libro con ese módulo
+            const response = await fetch(`http://localhost:3000/books?userId=${userId}&moduleCode=${moduleCode}`);
+            const data = await response.json();
+            // Si la respuesta tiene libros, significa que ya existe el libro en la base de datos
+            return data.length > 0;
+        } catch (error) {
+            console.error('Error en la validación del módulo:', error);
+            return false; // En caso de error, asumimos que no hay duplicados
+        }
+    }
+
     async handleSubmitBook(payload) {
         
         try {
 
             const bookId = document.getElementById('id').value;
+            const userId = 4;
+            const moduleCode = payload.moduleCode;
+
+            this.view.errores.innerHTML = '';
+            const exists = await this.validateModuleDuplication(userId, moduleCode);
+            if (exists) {
+                
+                const error = document.createElement('p');
+                error.className = 'error';
+                error.textContent = "Ya tienes un libro de este módulo en venta.";
+                this.view.errores.appendChild(error);
+                
+                return;
+            }
             
             if (bookId) {
                 // Si hay un ID, significa que estamos editando un libro
@@ -71,7 +98,7 @@ export default class Controller {
             this.view.renderUserMessage("error", error.message);
             console.error(error);
         }
-    }    
+    }
 
     handleChangeBook(bookID, updatedBookData) {
         this.model.books.changeBook(updatedBookData)

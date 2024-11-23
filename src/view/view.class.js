@@ -169,14 +169,6 @@ export default class View {
                 const payload = this.getFormData();
                 callback(payload);
             }
-            // const moduleCode = document.getElementById('id-module').value;
-            // const publisher = document.getElementById('publisher').value;
-            // const price = document.getElementById('price').value;
-            // const pages = parseInt(document.getElementById('pages').value);
-            // const status = document.querySelector('input[name="status"]:checked')?.value;
-            // const comments = document.getElementById('comments').value;
-
-            // callback({moduleCode, publisher, price, pages, status, comments});
         })
     }
 
