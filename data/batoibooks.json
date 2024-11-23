@@ -2315,6 +2315,28 @@
       "photo": "",
       "comments": "pkjASHDFKAJSDHF",
       "soldDate": ""
+    },
+    {
+      "id": "64",
+      "moduleCode": "0012",
+      "publisher": "a",
+      "price": 1,
+      "pages": 1,
+      "status": "new",
+      "photo": "",
+      "comments": "",
+      "soldDate": ""
+    },
+    {
+      "id": "65",
+      "moduleCode": "0026",
+      "publisher": "a",
+      "price": 1,
+      "pages": 1,
+      "status": "new",
+      "photo": "",
+      "comments": "",
+      "soldDate": ""
     }
   ]
 }

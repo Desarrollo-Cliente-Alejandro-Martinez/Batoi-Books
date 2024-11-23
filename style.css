@@ -473,3 +473,17 @@ textarea {
         font-size: 2em!important;
     }
 }
+
+/* Estilo para campos inválidos */
+input:invalid {
+    border: 2px dashed red;
+}
+  
+/* Estilo para mostrar el mensaje de error */
+.error {
+    color: red;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px;
+    padding: 5px;
+}

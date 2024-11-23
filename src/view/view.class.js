@@ -6,6 +6,7 @@ export default class View {
         this.remove = document.getElementById('remove');
         this.bookForm = document.getElementById('bookForm');
         this.messages = document.getElementById('messages');
+        this.errores = document.getElementById('errores');
     }
 
     renderModulesSelect(modules) {
@@ -162,16 +163,20 @@ export default class View {
 
     setBookSubmitHandler(callback) {  
         this.bookForm.addEventListener('submit', (event) => {
-            event.preventDefault()
+            event.preventDefault();
             
-            const moduleCode = document.getElementById('id-module').value;
-            const publisher = document.getElementById('publisher').value;
-            const price = document.getElementById('price').value;
-            const pages = parseInt(document.getElementById('pages').value);
-            const status = document.querySelector('input[name="status"]:checked')?.value;
-            const comments = document.getElementById('comments').value;
+            if (this.validateForm()) {
+                const payload = this.getFormData();
+                callback(payload);
+            }
+            // const moduleCode = document.getElementById('id-module').value;
+            // const publisher = document.getElementById('publisher').value;
+            // const price = document.getElementById('price').value;
+            // const pages = parseInt(document.getElementById('pages').value);
+            // const status = document.querySelector('input[name="status"]:checked')?.value;
+            // const comments = document.getElementById('comments').value;
 
-            callback({moduleCode, publisher, price, pages, status, comments});
+            // callback({moduleCode, publisher, price, pages, status, comments});
         })
     }
 
@@ -199,5 +204,71 @@ export default class View {
             event.preventDefault();
             callback();
         });
+    }
+
+
+
+    // Método para obtener los datos del formulario
+    getFormData() {
+        return {
+            moduleCode: this.bookForm.querySelector("#id-module").value,
+            publisher: this.bookForm.querySelector("#publisher").value,
+            price: parseFloat(this.bookForm.querySelector("#price").value),
+            pages: parseInt(this.bookForm.querySelector("#pages").value),
+            status: this.bookForm.querySelector("input[name='status']:checked").value,
+            comments: this.bookForm.querySelector("#comments").value,
+        };
+    }
+
+    // Método de validación de los campos del formulario
+    validateForm() {
+
+        const idModule = document.getElementById('id-module');
+        const publisher = document.getElementById('publisher');
+        const price = document.getElementById('price');
+        const pages = document.getElementById('pages');
+        const status = document.querySelector('input[name="status"]:checked');
+
+        this.errores.innerHTML = '';
+        let valid = true;
+        
+        // Validación del módulo (requerido)
+        if (!idModule.checkValidity()) {
+            valid = false;
+            this.crearMensajeError("Por favor selecciona un módulo.");
+        }
+
+        // Validación de la editorial (requerido)
+        if (!publisher.checkValidity()) {
+            valid = false;
+            this.crearMensajeError("Por favor introduce una editorial.");
+        }
+
+        // Validación del precio (requerido, numérico, mayor o igual que 0)
+        if (!price.checkValidity()) {
+            valid = false;
+            this.crearMensajeError("El precio debe ser un número mayor o igual que 0.");
+        }
+
+        // Validación de las páginas (requerido, entero, mayor que 0)
+        if (!pages.checkValidity()) {
+            valid = false;
+            this.crearMensajeError("El número de páginas debe ser un número entero mayor que 0.");
+        }
+
+        // Validación del estado (requerido)
+        if (!status) {
+            valid = false;
+            this.crearMensajeError("Por favor selecciona un estado.");
+        }
+
+        return valid;
+    }
+
+    crearMensajeError(mensaje) {
+        const error = document.createElement('p');
+        error.className = 'error';
+        error.textContent = mensaje;
+        this.errores.appendChild(error);
     }
 }
